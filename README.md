@@ -1,5 +1,5 @@
 ## Customer Segmentation (Unsupervised learning) v1
-#### PRODIGY_WD_01
+#### PRODIGY_ML_01
 <hr>
 
 ### Pipeline / Workflow

@@ -21,5 +21,5 @@ The silhouette score for a single data point is then defined as (b - a) / max(a,
 - b: The smallest average distance from the data point to points in other clusters, minimizing over clusters.
 
 Assets available to refer for further analysis are:
-- Jupyter notebook
+- <a href="https://www.kaggle.com/harshjadhav6301/mall-customer-segmentation">Jupyter notebook </a>
 - Streamlit <a href="https://cssegmentation.streamlit.app/">web app</a> 

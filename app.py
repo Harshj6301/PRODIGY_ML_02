@@ -15,10 +15,14 @@ customer_data.drop('CustomerID', axis=1, inplace=True)
 # Title
 st.title("Customer Segmentation Analysis")
 
+if st.checkbox('Show raw data'):
+    st.subheader('Raw data')
+    st.write(customer_data)
+
 # Scatter plot
 st.subheader("Scatter Plot of Spending Score vs. Annual Income")
-fig = sns.scatterplot(data=customer_data, x="Spending Score (1-100)", y="Annual Income (k$)", hue='Gender')
-st.pyplot()
+fig,ax = sns.scatterplot(data=customer_data, x="Spending Score (1-100)", y="Annual Income (k$)", hue='Gender')
+st.pyplot(fig)
 
 # Data preprocessing
 df = customer_data.iloc[:, 1:]

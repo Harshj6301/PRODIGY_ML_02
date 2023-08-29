@@ -1,39 +1,87 @@
 import streamlit as st
-#import numpy as np
+import pandas as pd
+import numpy as np
+import seaborn as sns
 import matplotlib.pyplot as plt
-from sklearn.datasets import make_blobs
+from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
+import plotly.express as px
 
-# Set title and description
-st.title("KMeans Clustering Web App")
-st.write("This app performs KMeans clustering and visualizes the clusters.")
+# Load customer data
+customer_data = pd.read_csv('assets/Mall_Customers.xls')
+customer_data.drop('CustomerID', axis=1, inplace=True)
 
-# Generate synthetic data
-X, _ = make_blobs(n_samples=300, centers=4, cluster_std=1.0, random_state=42)
+# Title
+st.title("Customer Segmentation Analysis")
 
-# Number of clusters
-num_clusters = st.slider("Select the number of clusters:", 2, 10, 4)
-
-# Fit KMeans clustering
-kmeans = KMeans(n_clusters=num_clusters, random_state=42)
-labels = kmeans.fit_predict(X)
-
-# Get cluster centers
-centers = kmeans.cluster_centers_
-
-# Create scatter plot
-fig, ax = plt.subplots(figsize=(10, 6))
-for i in range(num_clusters):
-    ax.scatter(X[labels == i, 0], X[labels == i, 1], label=f'Cluster {i+1}')
-ax.scatter(centers[:, 0], centers[:, 1], marker='x', color='black', s=100, label='Cluster Centers')
-plt.title('KMeans Clustering')
-plt.xlabel('Feature 1')
-plt.ylabel('Feature 2')
-plt.legend()
-
-# Display the plot
+# Scatter plot
+st.subheader("Scatter Plot of Spending Score vs. Annual Income")
+fig = sns.scatterplot(data=customer_data, x="Spending Score (1-100)", y="Annual Income (k$)", hue='Gender')
 st.pyplot(fig)
 
-# Display cluster assignments
-st.write("Cluster Assignments:")
-st.write(labels)
+# Data preprocessing
+df = customer_data.iloc[:, 1:]
+scaler = StandardScaler()
+dfs = scaler.fit_transform(df)
+
+# Elbow method
+st.subheader("Elbow Method for Optimal k")
+inertia = []
+for i in range(1, 11):
+    kmeans = KMeans(init="k-means++", n_clusters=i, random_state=42)
+    kmeans.fit(dfs)
+    inertia.append(kmeans.inertia_)
+plt.plot(range(1, 11), inertia, marker='o')
+plt.title("No. of clusters and inertia")
+plt.xlabel("Clusters")
+plt.ylabel("Inertia")
+st.pyplot()
+
+# Silhouette score
+st.subheader("Silhouette Score Method for Optimal k")
+silhouette_scores = []
+for k in range(2, 11):
+    kmeans = KMeans(n_clusters=k, random_state=42)
+    labels = kmeans.fit_predict(dfs)
+    silhouette_scores.append(silhouette_score(dfs, labels))
+
+plt.plot(range(2, 11), silhouette_scores, marker='o')
+plt.xlabel('Number of Clusters (k)')
+plt.ylabel('Silhouette Score')
+plt.title('Silhouette Score Method for Optimal k')
+st.pyplot()
+
+# Cluster visualization
+clusterNum = 6
+kmeans = KMeans(n_clusters=clusterNum)
+kmeans.fit(dfs)
+labels = kmeans.labels_
+slabel = labels.astype('str')
+
+# Plot with Plotly Express
+st.subheader("Clusters with Age by Income")
+fig = px.scatter(data_frame=dfs, x=dfs[:, 0], y=dfs[:, 1], color_continuous_scale='darkmint', color=slabel,
+                 labels={'size': 'cluster', 'x': 'Age', 'y': 'Annual Income (k$)', 'color': 'Cluster'},
+                 hover_data={'Gender': customer_data['Gender'], 'Age': customer_data['Age'],
+                             'Annual Income (k$)': customer_data['Annual Income (k$)']},
+                 title='Clusters with Age by Income')
+
+st.plotly_chart(fig)
+
+# Function to predict cluster for user input
+def Predict(INPUT):
+    sample = np.array(INPUT)
+    sample = sample.reshape(1, -1)
+    result = kmeans.predict(sample)
+    return result
+
+# User input for prediction
+st.subheader("Predict Cluster for User Input")
+AGE = st.slider("Age:", 0, 100, 18)
+INCOME = st.slider("Annual Income (k$):", 0, 200, 130)
+SPENDING_SCORE = st.slider("Spending Score (1-100):", 0, 100, 45)
+
+INPUT = [AGE, INCOME, SPENDING_SCORE]
+result = Predict(INPUT)
+st.write(f'Assigned Cluster: {result}')

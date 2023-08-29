@@ -36,7 +36,7 @@ plt.plot(range(1, 11), inertia, marker='o')
 plt.title("No. of clusters and inertia")
 plt.xlabel("Clusters")
 plt.ylabel("Inertia")
-st.plot()
+st.pyplot()
 
 # Silhouette score
 st.subheader("Silhouette Score Method for Optimal k")
@@ -50,7 +50,7 @@ plt.plot(range(2, 11), silhouette_scores, marker='o')
 plt.xlabel('Number of Clusters (k)')
 plt.ylabel('Silhouette Score')
 plt.title('Silhouette Score Method for Optimal k')
-st.plot()
+st.pyplot()
 
 # Cluster visualization
 clusterNum = 6

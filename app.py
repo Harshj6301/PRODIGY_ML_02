@@ -17,8 +17,8 @@ st.title("Customer Segmentation Analysis")
 
 # Scatter plot
 st.subheader("Scatter Plot of Spending Score vs. Annual Income")
-fig,ax = sns.scatterplot(data=customer_data, x="Spending Score (1-100)", y="Annual Income (k$)", hue='Gender')
-st.pyplot(fig)
+fig = sns.scatterplot(data=customer_data, x="Spending Score (1-100)", y="Annual Income (k$)", hue='Gender')
+st.pyplot()
 
 # Data preprocessing
 df = customer_data.iloc[:, 1:]

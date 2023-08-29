@@ -19,18 +19,14 @@ if st.checkbox('Show raw data'):
     st.subheader('Raw data')
     st.write(customer_data)
 
-# Scatter plot
-st.subheader("Scatter Plot of Spending Score vs. Annual Income")
-fig,ax = sns.scatterplot(data=customer_data, x="Spending Score (1-100)", y="Annual Income (k$)", hue='Gender')
-st.pyplot(fig)
-
 # Data preprocessing
 df = customer_data.iloc[:, 1:]
 scaler = StandardScaler()
 dfs = scaler.fit_transform(df)
 
+col1, col2 = st.columns([0.5,0.5])
 # Elbow method
-st.subheader("Elbow Method for Optimal k")
+col1.subheader("Elbow Method for Optimal k")
 inertia = []
 for i in range(1, 11):
     kmeans = KMeans(init="k-means++", n_clusters=i, random_state=42)
@@ -40,10 +36,10 @@ plt.plot(range(1, 11), inertia, marker='o')
 plt.title("No. of clusters and inertia")
 plt.xlabel("Clusters")
 plt.ylabel("Inertia")
-st.pyplot()
+col1.pyplot()
 
 # Silhouette score
-st.subheader("Silhouette Score Method for Optimal k")
+col2.subheader("Silhouette Score Method for Optimal k")
 silhouette_scores = []
 for k in range(2, 11):
     kmeans = KMeans(n_clusters=k, random_state=42)
@@ -54,7 +50,7 @@ plt.plot(range(2, 11), silhouette_scores, marker='o')
 plt.xlabel('Number of Clusters (k)')
 plt.ylabel('Silhouette Score')
 plt.title('Silhouette Score Method for Optimal k')
-st.pyplot()
+col2.pyplot()
 
 # Cluster visualization
 clusterNum = 6
@@ -71,7 +67,8 @@ fig = px.scatter(data_frame=dfs, x=dfs[:, 0], y=dfs[:, 1], color_continuous_scal
                              'Annual Income (k$)': customer_data['Annual Income (k$)']},
                  title='Clusters with Age by Income')
 
-st.plotly_chart(fig, theme='streamlit', use_container_width=True)
+st.plotly_chart(fig, theme='streamlit', use_container_width=False)
+
 
 # Function to predict cluster for user input
 def Predict(INPUT):

@@ -18,7 +18,7 @@ st.title("Customer Segmentation Analysis")
 # Scatter plot
 st.subheader("Scatter Plot of Spending Score vs. Annual Income")
 fig = sns.scatterplot(data=customer_data, x="Spending Score (1-100)", y="Annual Income (k$)", hue='Gender')
-st.pyplot(fig)
+st.plotly_chart(fig, theme='streamlit', use_container_width=True)
 
 # Data preprocessing
 df = customer_data.iloc[:, 1:]
@@ -36,7 +36,7 @@ plt.plot(range(1, 11), inertia, marker='o')
 plt.title("No. of clusters and inertia")
 plt.xlabel("Clusters")
 plt.ylabel("Inertia")
-st.pyplot()
+st.plot()
 
 # Silhouette score
 st.subheader("Silhouette Score Method for Optimal k")
@@ -50,7 +50,7 @@ plt.plot(range(2, 11), silhouette_scores, marker='o')
 plt.xlabel('Number of Clusters (k)')
 plt.ylabel('Silhouette Score')
 plt.title('Silhouette Score Method for Optimal k')
-st.pyplot()
+st.plot()
 
 # Cluster visualization
 clusterNum = 6
@@ -67,7 +67,7 @@ fig = px.scatter(data_frame=dfs, x=dfs[:, 0], y=dfs[:, 1], color_continuous_scal
                              'Annual Income (k$)': customer_data['Annual Income (k$)']},
                  title='Clusters with Age by Income')
 
-st.plotly_chart(fig)
+st.plotly_chart(fig, theme='streamlit', use_container_width=True)
 
 # Function to predict cluster for user input
 def Predict(INPUT):

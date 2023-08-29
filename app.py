@@ -32,11 +32,12 @@ for i in range(1, 11):
     kmeans = KMeans(init="k-means++", n_clusters=i, random_state=42)
     kmeans.fit(dfs)
     inertia.append(kmeans.inertia_)
-plt.plot(range(1, 11), inertia, marker='o')
-plt.title("No. of clusters and inertia")
-plt.xlabel("Clusters")
-plt.ylabel("Inertia")
-col1.pyplot()
+fig, ax = plt.subplots()
+ax.plot(range(1, 11), inertia, marker='o')
+ax.title("No. of clusters and inertia")
+ax.xlabel("Clusters")
+ax.ylabel("Inertia")
+col1.pyplot(fig)
 
 # Silhouette score
 col2.subheader("Silhouette Score Method for Optimal k")
@@ -45,8 +46,8 @@ for k in range(2, 11):
     kmeans = KMeans(n_clusters=k, random_state=42)
     labels = kmeans.fit_predict(dfs)
     silhouette_scores.append(silhouette_score(dfs, labels))
-
-plt.plot(range(2, 11), silhouette_scores, marker='o')
+fig, ax = plt.subplots()
+ax.plot(range(2, 11), silhouette_scores, marker='o')
 plt.xlabel('Number of Clusters (k)')
 plt.ylabel('Silhouette Score')
 plt.title('Silhouette Score Method for Optimal k')

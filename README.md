@@ -21,4 +21,4 @@ The silhouette score for a single data point is then defined as (b - a) / max(a,
 
 Assets available to refer for further analysis are:
 - Jupyter notebook
-- Streamlit web app
+- Streamlit <a href="https://cssegmentation.streamlit.app/">web app</a> 

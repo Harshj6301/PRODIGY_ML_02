@@ -24,7 +24,7 @@ df = customer_data.iloc[:, 1:]
 scaler = StandardScaler()
 dfs = scaler.fit_transform(df)
 
-col1, col2 = st.columns([0.49,0.51])
+col1, col2 = st.columns([0.5,0.5])
 # Elbow method
 col1.subheader("Elbow Method for Optimal k")
 inertia = []
@@ -40,7 +40,7 @@ plt.ylabel("Inertia")
 col1.pyplot(fig)
 
 # Silhouette score
-col2.subheader("Silhouette Score for Optimal k")
+col2.subheader("Silhouette Score for k")
 silhouette_scores = []
 for k in range(2, 11):
     kmeans = KMeans(n_clusters=k, random_state=42)

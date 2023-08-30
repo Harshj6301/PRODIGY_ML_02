@@ -70,6 +70,12 @@ fig = px.scatter(data_frame=dfs, x=dfs[:, 0], y=dfs[:, 1], color_continuous_scal
 
 st.plotly_chart(fig, theme='streamlit', use_container_width=False)
 
+# 3d scatter plot
+st.subheader("Scatter 3d with Age, Income, Spending score")
+fig1 = px.scatter_3d(data_frame=dfs, x=dfs[:, 0], z=dfs[:,2],y=dfs[:,1],
+                     hover_data='Gender': customer_data['Gender'], 'Age': customer_data['Age'],'Annual Income (k$)': customer_data['Annual Income (k$)']},
+                     labels={'size': 'cluster', 'x': 'Age', 'y': 'Annual Income (k$)', 'color': 'Cluster'})
+st.plotly_chart(fig1, theme='streamlit', use_container_width = False)
 
 # Function to predict cluster for user input
 def Predict(INPUT):

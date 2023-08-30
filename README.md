@@ -22,4 +22,4 @@ The silhouette score for a single data point is then defined as (b - a) / max(a,
 
 Assets available to refer for further analysis are:
 - <a href="https://www.kaggle.com/harshjadhav6301/mall-customer-segmentation">Jupyter notebook </a>
-- Streamlit <a href="https://cssegmentation.streamlit.app/">web app</a> 
+- Streamlit <a href="https://cssegmentation.streamlit.app/" target="_blank">web app</a> 

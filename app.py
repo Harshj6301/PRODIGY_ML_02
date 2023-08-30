@@ -24,7 +24,7 @@ df = customer_data.iloc[:, 1:]
 scaler = StandardScaler()
 dfs = scaler.fit_transform(df)
 
-col1, col2 = st.columns([0.5,0.5])
+col1, col2 = st.columns([0.49,0.51])
 # Elbow method
 col1.subheader("Elbow Method for Optimal k")
 inertia = []

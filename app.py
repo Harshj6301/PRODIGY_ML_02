@@ -40,7 +40,7 @@ plt.ylabel("Inertia")
 col1.pyplot(fig)
 
 # Silhouette score
-col2.subheader("Silhouette Score Method for Optimal k")
+col2.subheader("Silhouette Score for Optimal k")
 silhouette_scores = []
 for k in range(2, 11):
     kmeans = KMeans(n_clusters=k, random_state=42)

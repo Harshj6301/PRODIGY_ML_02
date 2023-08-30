@@ -1,6 +1,6 @@
 ## Customer Segmentation (Unsupervised learning) v2
 ### <a href="https://cssegmentation.streamlit.app/">Streamlit Web app</a>
-#### PRODIGY_ML_01
+#### PRODIGY_ML_02
 <hr>
 
 ### Pipeline / Workflow
